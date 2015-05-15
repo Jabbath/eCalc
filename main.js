@@ -1,5 +1,6 @@
 var math = require('mathjs');
 var fs = require('fs');
+var time1 = new Date();
 
 //We will have to use bignumbers here
 math.config({ 
@@ -22,7 +23,7 @@ function compute(digits){
 	var prevE = 0;
 	
 	while(Math.abs(stepCalc.e) - 1 < digits){
-		sum = math.add(sum,giveStep(currentStep));
+		sum = math.add(sum,stepCalc);
 		currentStep += 1;
 		stepCalc = giveStep(currentStep);
 		
@@ -40,4 +41,7 @@ var result = compute(10000);
 fs.writeFile('digits.txt',result,function(err){
 	if(err) throw err;
 	console.log('done');
+	
+	var time2 = new Date();
+	console.log('took %d ms',time2-time1);
 });
